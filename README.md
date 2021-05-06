@@ -13,7 +13,7 @@
 * The first, you need one network to connect the container
 * Run command: docker network create --driver bridge network_hadoop --subnet=172.16.0.0/16
 * The next, install Hadoop: [Config Hadoop with docker](https://github.com/TrieanNguyen/Hadoop-Cluster-3node.git)
-* you want in the folder Hadoop-Cluster-3node
+* You need in the folder Hadoop-Cluster-3node
 * Run command: cd Hadoop-Cluster-3node
 * Run the command to build Images:    docker-compose build
 * Run the command to build Container: docker-compose up
