@@ -17,5 +17,5 @@
 * Run command: cd Hadoop-Cluster-3node
 * Run the command to build Images:    docker-compose build
 * Run the command to build Container: docker-compose up
-* If you want stop the Container:     docker-compose down 
+* If you want stop the Container, run command:  docker-compose down 
  
