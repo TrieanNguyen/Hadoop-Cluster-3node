@@ -17,5 +17,7 @@
 * Run command: cd Hadoop-Cluster-3node
 * Run the command to build Images:    docker-compose build
 * Run the command to build Container: docker-compose up
-* If you want stop the Container, run command:  docker-compose down 
+* Right now you can check the Container activity, run command: docker ps 
+* If you want stop the Container, run command:  docker-compose down
+* Here you have installed Hadoop by Docker, GOOD LOOK!!!  
  
