@@ -19,5 +19,5 @@
 * Run the command to build Container: docker-compose up
 * Right now you can check the Container activity, run command: docker ps 
 * If you want stop the Container, run command:  docker-compose down
-* Here you have installed Hadoop by Docker, GOOD LOOK!!!  
+* Here you have installed Hadoop by Docker, GOOD LUCK!!!   
  
