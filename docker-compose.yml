@@ -1,0 +1,72 @@
+version: "3"
+
+services:
+    slave1:
+        build: 
+            dockerfile: Dockerfile
+            context: .
+        container_name: slave1
+        networks: 
+            default:
+                ipv4_address: 172.16.0.3
+        hostname: slave1
+        extra_hosts: 
+            master: 172.16.0.2
+            slave2: 172.16.0.4
+        command: bash -c  "
+                   hadoop-daemon.sh --config /usr/local/hadoop/etc/hadoop start datanode
+                   && yarn-daemon.sh --config /usr/local/hadoop/etc/hadoop start nodemanager
+                   && tail -f /dev/null"
+        restart: always
+    slave2:
+        build: 
+            dockerfile: Dockerfile
+            context: .
+        container_name: slave2
+        networks: 
+            default:
+                ipv4_address: 172.16.0.4
+        hostname: slave2
+        extra_hosts: 
+            master: 172.16.0.2
+            slave1: 172.16.0.3
+        command: bash -c  "
+                       hadoop-daemon.sh --config /usr/local/hadoop/etc/hadoop start datanode
+                       && yarn-daemon.sh --config /usr/local/hadoop/etc/hadoop start nodemanager
+                       && tail -f /dev/null"
+        restart: always
+    master:
+        build:
+            dockerfile: Dockerfile
+            context: .
+            args:
+                FORMAT_NAMENODE: hdfs namenode -format
+        container_name: master
+        networks:
+          default:
+             ipv4_address: 172.16.0.2
+        hostname: master
+        extra_hosts:
+            slave1: 172.16.0.3
+            slave2: 172.16.0.4
+        command: bash -c  "
+                   start-dfs.sh
+                   && start-yarn.sh
+                   && mr-jobhistory-daemon.sh start historyserver
+                   && tail -f /dev/null "
+        ports:
+            - 50070:50070
+            - 8088:8088
+        restart: always
+
+networks:
+  default:
+    external:
+      name: network_hadoop
+
+
+
+
+        
+
+
