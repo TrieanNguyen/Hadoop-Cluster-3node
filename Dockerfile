@@ -37,6 +37,18 @@ ADD config/start-yarn.sh $HADOOP_HOME/sbin
 ADD config/stop-dfs.sh $HADOOP_HOME/sbin
 ADD config/stop-yarn.sh $HADOOP_HOME/sbin
 
+#config Spark
+RUN wget https://downloads.apache.org/spark/spark-3.0.2/spark-3.0.2-bin-hadoop2.7.tgz
+RUN tar xvf spark-3.0.2-bin-hadoop2.7.tgz
+RUN mv spark-3.0.2-bin-hadoop2.7 /usr/local/spark
+ENV SPARK_HOME /usr/local/spark
+ENV PATH $SPARK_HOME/sbin:$PATH
+ENV PATH $SPARK_HOME/bin:$PATH
+
+
+ADD config/slaves $SPARK_HOME/conf/slaves
+RUN echo "export SPARK_MASTER_HOST='172.16.0.2'" >> $SPARK_HOME/conf/spark-env.sh
+RUN echo "export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64" >> $SPARK_HOME/conf/spark-env.sh
 #Create folder for config later
 
 RUN mkdir /home/hadoop
