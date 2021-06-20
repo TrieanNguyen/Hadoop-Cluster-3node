@@ -16,6 +16,7 @@ services:
         command: bash -c  "
                    hadoop-daemon.sh --config /usr/local/hadoop/etc/hadoop start datanode
                    && yarn-daemon.sh --config /usr/local/hadoop/etc/hadoop start nodemanager
+                   && start-slave.sh master:7077
                    && tail -f /dev/null"
         restart: always
     slave2:
@@ -33,6 +34,7 @@ services:
         command: bash -c  "
                        hadoop-daemon.sh --config /usr/local/hadoop/etc/hadoop start datanode
                        && yarn-daemon.sh --config /usr/local/hadoop/etc/hadoop start nodemanager
+                       && start-slave.sh master:7077
                        && tail -f /dev/null"
         restart: always
     master:
@@ -53,10 +55,13 @@ services:
                    start-dfs.sh
                    && start-yarn.sh
                    && mr-jobhistory-daemon.sh start historyserver
+                   && start-master.sh
                    && tail -f /dev/null "
         ports:
             - 50070:50070
             - 8088:8088
+            - 8080:8080
+            - 4040:4040
         restart: always
 
 networks:
